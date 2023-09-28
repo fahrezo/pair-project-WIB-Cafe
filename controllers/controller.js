@@ -22,6 +22,12 @@ class Controller {
                     res.send(err)
                 }
             })
+    static register (req, res) {
+        res.render('register_page')
+    }
+
+    static postRegister (req, res) {
+        res.send(req.body)
     }
 }
 
