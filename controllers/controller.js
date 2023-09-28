@@ -38,7 +38,8 @@ class Controller {
         } else {
             User.create({name, email, password, phone, address, role})
                 .then((users) => {
-                    res.redirect('/')
+                    // res.send(users)
+                    res.redirect(`/register/wallet/${users.id}`)
                 })
                 .catch((err) => { 
                     if (err.name == 'SequelizeValidationError') {
@@ -53,6 +54,13 @@ class Controller {
 
     static postWallet (req, res) {
         const {id} = req.params
+        Wallet.create({UserId: id})
+            .then((result) => {
+                res.redirect('/')
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 
     static addMenu (req,res) {
