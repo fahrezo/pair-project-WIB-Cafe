@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Order, { foreignKey: 'UserId'}),
+      User.hasOne(models.Wallet, { foreignKey: 'UserId'})
     }
   }
   User.init({
@@ -27,12 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     phone: {
-      type: DataTypes.STRING,
+    type: DataTypes.STRING,
       unique: true,
       allowNull: false
     },
@@ -40,13 +37,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    WalletId: {
-      type: DataTypes.INTEGER,
-      allowNull: 0
-    },
-    point: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
     sequelize,

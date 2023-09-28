@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Wallet.belongsTo(models.User, { foreignKey: 'UserId'})
     }
   }
   Wallet.init({
@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     balance: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    point: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     }
