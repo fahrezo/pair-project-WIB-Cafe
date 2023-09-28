@@ -1,24 +1,34 @@
 const { Menu, User, Wallet, Order } = require ('../models')
+const bcrypt = require('bcrypt')
 
 class Controller {
     static home (req,res) {
-        res.render('log_in_page')
+        const {errors} = req.query
+        res.render('log_in_page', {errors})
     }
 
     static postLogin (req, res) {
         const {email, password} = req.body
 
         User.findOne({
-            where: { email: email, password: password}
+            where: { email: email}
         })
             .then((result) => {
                 if (!result) {
-                    res.redirect('/')
+                    const error = "Email not registered"
+                    return res.redirect(`/?errors=${error}`)
                 } else {
-                    if (result.role === "Admin") {
-                        res.redirect('/admin')
+                    const validatePassword = bcrypt.compareSync(password, result.password)
+
+                    if(!validatePassword) {
+                        const error = "Password is incorrect"
+                        return res.redirect(`/?errors=${error}`)
                     } else {
-                        res.redirect(`/customer/${result.id}`)
+                        if (result.role === "Admin") {
+                            res.redirect('/admin')
+                        } else {
+                            res.redirect(`/customer/${result.id}`)
+                        }
                     }
                 }
             })
