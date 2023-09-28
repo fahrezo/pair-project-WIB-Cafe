@@ -154,7 +154,8 @@ class Controller {
     static customerOrderList (req, res) {
         const {id} = req.params
         Order.findAll({
-            where: { UserId: id}
+            where: { UserId: id},
+            include: { model: Menu }
         })
         .then((orders) => {
             res.send(orders)
