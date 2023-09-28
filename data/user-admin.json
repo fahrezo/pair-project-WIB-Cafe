@@ -1,0 +1,11 @@
+[
+    {
+        "name": "ADMIN",
+        "email": "admin",
+        "password": "admin",
+        "role": "admin",
+        "phone": "081234567890",
+        "address": "Jakarta",
+        "point": 0
+    }
+]

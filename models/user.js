@@ -27,8 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false
     },
@@ -38,8 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     WalletId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
+      autoIncrement: true
     },
     point: {
       type: DataTypes.INTEGER,
