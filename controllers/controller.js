@@ -16,7 +16,7 @@ class Controller {
                     res.redirect('/')
                 } else {
                     if (result.role === "Admin") {
-                        res.redirect('/admin/menu')
+                        res.redirect('/admin')
                     } else {
                         res.redirect('Customer Menu')
                     }
@@ -54,7 +54,7 @@ class Controller {
     }
 
     static addMenu (req,res) {
-        // res.render('TAMBAH MENU')
+        res.render('form_add_menu')
     }
 
     static createMenu (req,res) {
@@ -90,20 +90,7 @@ class Controller {
         res.render('admin_order')
     }
 
-    static showMenu (req, res) {
-        Menu.findAll()
-            .then((menus) => {
-                console.log(menus)
-                res.redirect('/MENU UTAMA', {menus})
-            })
-            .catch((err) => {
-                res.send(err)
-            })
-    }
-
-    static addOrder (req, res) {
-        console.log();
-    }
+    //ini comment
 }
 
 module.exports = Controller
