@@ -20,6 +20,7 @@ router.get('/register/wallet/:id', Controller.postWallet)
 router.get('/admin/list/detail/:id', Controller.customerDetail)
 router.get('/admin/edit/menu/:id', Controller.addMenu)
 router.post('/admin/edit/menu/:id', Controller.addMenu)
+router.get('/menu/delete/:id', Controller.deleteOrder)
 
 router.get('/logout', Controller.logout)
 

@@ -127,11 +127,16 @@ class Controller {
     }
 
     static orderList (req, res) {
+        let order = ''
         Order.findAll({
             include: { model: User }
         })
         .then((orders) => {
-            res.render('admin_order', {orders})
+            order = orders
+            return Menu.findAll()
+        })
+        .then((result) => {
+            res.render('admin_order', {order, result})
         })
         .catch((err) => {
             res.send(err)
@@ -183,9 +188,25 @@ class Controller {
         })
     }
 
+    static deleteOrder (req, res) {
+        const {id} = req.params
+        Order.destroy({
+            where : {
+                id: id
+            }
+        })
+        .then(() => {
+            res.redirect('/admin/order')
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+    }
+
     static logout (req, res) {
         res.redirect('/')
     }
+    
 }
 
 module.exports = Controller

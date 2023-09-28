@@ -86,13 +86,19 @@
         </tr>
       </thead>
       <tbody>
-        <% orders.forEach(el => { %>
+        <% let foodName = '' %>
+        <% order.forEach(el => { %>
+          <% result.forEach(element => {
+            if (element.dataValues.id===el.MenuId) {
+              foodName = element.dataValues.name
+            }
+          }); %>
           <tr>
             <th scope="row"><%= el.id %></th>
-            <td><%= el.MenuId %></td>
+            <td><%= foodName %></td>
             <td><%= el.amount %></td>
             <td><%= el.User.name %></td>
-            <td><a class="btn btn-outline-success">DONE</a></td>
+            <td><a class="btn btn-outline-success" href="/menu/delete/<%= el.id %>">DONE</a></td>
           </tr>
         <% }); %>
       </tbody>
