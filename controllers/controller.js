@@ -138,20 +138,34 @@ class Controller {
 
     static customerOrder (req, res) {
         // res.send(`oke`)
-        // console.log(req.params, req.body);
-        const {MenuId, id} = req.params
-        const {amount} = req.body
+        console.log(req.params, req.body);
+        const {id, MenuId} = req.params
+        const {price, amount} = req.body
 
-        const price = 30000
-        let totalprice = amount * price
+        const total = amount * price
 
-        Order.create({MenuId, UserId:id, amount, totalprice})
+        Order.create({MenuId, UserId:id, amount, totalprice: total})
             .then((result) => {
-                res.redirect(`/customer/${id}}`)
+                console.log(id);
+                console.log(req.params.id);
+                res.redirect(`/customer/${id}/menu`)
             })
             .catch((err) => {
                 res.send(err)
             })
+    }
+
+    static customerOrderList (req, res) {
+        const {id} = req.params
+        Order.findAll({
+            where: { UserId: id}
+        })
+        .then((orders) => {
+            res.send(orders)
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static logout (req, res) {
