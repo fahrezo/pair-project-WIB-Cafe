@@ -11,16 +11,20 @@ class Controller {
         User.findOne({
             where: { email: email, password: password}
         })
-            .then((result) => {
-                if (!result) {
-                    res.redirect('/')
+        .then((result) => {
+            if (!result) {
+                res.redirect('/')
+            } else {
+                if (result.role === "Admin") {
+                    res.redirect('/admin/menu')
                 } else {
-                    res.send('ini menu')
+                    res.redirect('Customer Menu')
                 }
-            })
-            .catch((err) => {
-                res.send(err)
-            })
+            }
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static register (req, res) {
@@ -86,7 +90,6 @@ class Controller {
         res.render('admin_order')
     }
 
-    //ini comment
 }
 
 module.exports = Controller
