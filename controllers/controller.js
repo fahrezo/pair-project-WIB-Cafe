@@ -84,11 +84,10 @@ class Controller {
     }
 
     static createMenu (req,res) {
-        const {name, price, category, description} = req.body
-        Menu.create({name, price, category, description})
+        const {name, price, category, description, imageURL} = req.body
+        Menu.create({name, price, category, description, imageURL})
             .then((menu) => {
-                console.log(menu);
-                res.redirect(`/MENU UTAMA`)
+                res.redirect('/admin/menu')
             })
             .catch((err) => { 
                 if (err.name == 'SequelizeValidationError') {
@@ -98,6 +97,49 @@ class Controller {
                     res.send(err)
                 }
             })
+    } 
+
+    static editMenu (req,res) {
+        let result = ''
+        const {id} = req.params
+        Menu.findOne({
+            where : {
+                id: id
+            }
+        })
+            .then((menu) => {
+                result = menu.dataValues
+                res.render('form_edit_menu', {result})
+            })
+            .catch((err) => { 
+                if (err.name == 'SequelizeValidationError') {
+                    const messages = err.errors.map((el) => el.message)
+                    res.send(messages)
+                } else {
+                    res.send(err)
+                }
+            })
+    } 
+
+    static postEditMenu (req,res) {
+        const {id} = req.params
+        const {name, price, category, description, imageURL} = req.body
+        Menu.update({name:name, price:price, category:category, description:description, imageURL:imageURL}, {
+            where: {
+                id:id
+            }
+        })
+        .then(() => {
+            res.redirect('/admin/menu')
+        })
+        .catch((err) => { 
+            if (err.name == 'SequelizeValidationError') {
+                const messages = err.errors.map((el) => el.message)
+                res.send(messages)
+            } else {
+                res.send(err)
+            }
+        })
     } 
 
     static helloAdmin (req, res) {
@@ -179,7 +221,6 @@ class Controller {
             .catch((err) => {
                 if (err.name == 'SequelizeValidationError') {
                     const errors = err.errors.map((el) => el.message)
-                    // res.send(messages)
                     return res.redirect(`/customer/${id}/menu?errors=${errors}`)
                 } else {
                     res.send(err)
@@ -210,6 +251,21 @@ class Controller {
         })
         .then(() => {
             res.redirect('/admin/order')
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+    }
+
+    static deleteMenu (req, res) {
+        const {id} = req.params
+        Menu.destroy({
+            where : {
+                id: id
+            }
+        })
+        .then(() => {
+            res.redirect('/admin/menu')
         })
         .catch((err) => {
             res.send(err)
