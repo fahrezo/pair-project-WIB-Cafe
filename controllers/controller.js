@@ -16,7 +16,7 @@ class Controller {
                     res.redirect('/')
                 } else {
                     if (result.role === "Admin") {
-                        res.redirect('/admin/menu')
+                        res.redirect('/admin')
                     } else {
                         res.redirect('Customer Menu')
                     }
@@ -54,7 +54,7 @@ class Controller {
     }
 
     static addMenu (req,res) {
-        // res.render('TAMBAH MENU')
+        res.render('form_add_menu')
     }
 
     static createMenu (req,res) {
