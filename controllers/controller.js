@@ -15,7 +15,11 @@ class Controller {
                 if (!result) {
                     res.redirect('/')
                 } else {
-                    res.send('ini menu')
+                    if (result.role === "Admin") {
+                        res.redirect('/admin/menu')
+                    } else {
+                        res.redirect('Customer Menu')
+                    }
                 }
             })
             .catch((err) => {
@@ -86,7 +90,20 @@ class Controller {
         res.render('admin_order')
     }
 
-    //ini comment
+    static showMenu (req, res) {
+        Menu.findAll()
+            .then((menus) => {
+                console.log(menus)
+                res.redirect('/MENU UTAMA', {menus})
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+    }
+
+    static addOrder (req, res) {
+        console.log();
+    }
 }
 
 module.exports = Controller
