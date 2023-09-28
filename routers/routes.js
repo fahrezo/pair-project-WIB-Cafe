@@ -17,4 +17,6 @@ router.get('/admin/list/detail/:id', Controller.customerDetail)
 router.get('/admin/edit/menu/:id', Controller.addMenu)
 router.post('/admin/edit/menu/:id', Controller.addMenu)
 
+router.get('/logout', Controller.logout)
+
 module.exports = router

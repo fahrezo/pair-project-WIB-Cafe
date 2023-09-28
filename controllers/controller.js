@@ -118,6 +118,10 @@ class Controller {
     static customerDetail (req, res) {
         res.render('admin_customer_detail')
     }
+
+    static logout (req, res) {
+        res.redirect('/')
+    }
 }
 
 module.exports = Controller
