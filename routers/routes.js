@@ -13,6 +13,7 @@ router.get('/admin/list', Controller.customerList)
 router.get('/admin/order', Controller.orderList)
 router.get('/admin/add/menu', Controller.addMenu)
 router.post('/admin/add/menu', Controller.addMenu)
+router.get('/admin/list/detail/:id', Controller.customerDetail)
 router.get('/admin/edit/menu/:id', Controller.addMenu)
 router.post('/admin/edit/menu/:id', Controller.addMenu)
 

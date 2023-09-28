@@ -115,7 +115,9 @@ class Controller {
         res.render('admin_order')
     }
 
-    //ini comment
+    static customerDetail (req, res) {
+        res.render('admin_customer_detail')
+    }
 }
 
 module.exports = Controller
