@@ -89,7 +89,8 @@ class Controller {
     }
 
     static helloCustomer (req, res) {
-        res.render('customer_homepage')
+        const {id} = req.params
+        res.render('customer_homepage', {id})
     }
 
     static restaurantMenu (req, res) {
@@ -122,20 +123,20 @@ class Controller {
     static customerDetail (req, res) {
         res.render('admin_customer_detail')
     }
+    
+    static customerMenu (req, res) {
+        const {id} = req.params
+        Menu.findAll()
+        .then((menus) => {
+            res.render('customer_menu', {menus, id})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+    }
 
-<<<<<<< HEAD
     static logout (req, res) {
         res.redirect('/')
-=======
-    static customerMenu (req, res) {
-        Menu.findAll()
-            .then((menus) => {
-                res.render('customer_menu', {menus})
-            })
-            .catch((err) => {
-                res.send(err)
-            })
->>>>>>> b10dfd1c372a8b134ffe43c8891232329b0d0366
     }
 }
 
