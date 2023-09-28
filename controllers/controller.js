@@ -85,6 +85,8 @@ class Controller {
     static orderList (req, res) {
         res.render('admin_order')
     }
+
+    //ini comment
 }
 
 module.exports = Controller
