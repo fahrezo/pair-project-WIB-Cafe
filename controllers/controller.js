@@ -18,7 +18,7 @@ class Controller {
                     if (result.role === "Admin") {
                         res.redirect('/admin')
                     } else {
-                        res.redirect('Customer Menu')
+                        res.redirect(`/customer/${result.id}`)
                     }
                 }
             })
@@ -88,6 +88,10 @@ class Controller {
         res.render('admin_homepage')
     }
 
+    static helloCustomer (req, res) {
+        res.render('customer_homepage')
+    }
+
     static restaurantMenu (req, res) {
         Menu.findAll()
             .then((menus) => {
@@ -117,6 +121,16 @@ class Controller {
 
     static customerDetail (req, res) {
         res.render('admin_customer_detail')
+    }
+
+    static customerMenu (req, res) {
+        Menu.findAll()
+            .then((menus) => {
+                res.render('customer_menu', {menus})
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 }
 

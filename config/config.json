@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "postgres",
-    "password": "sapi",
+    "password": "postgres",
     "database": "wib-cafe",
     "host": "localhost",
     "dialect": "postgres"
