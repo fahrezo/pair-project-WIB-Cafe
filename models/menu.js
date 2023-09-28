@@ -17,23 +17,43 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: `Food's name is required`},
+        notEmpty: {msg: `Food's name is required`}
+      }
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Price is required'},
+        notEmpty: {msg: 'Price is required'}
+      }
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Category is required'},
+        notEmpty: {msg: 'Category is required'}
+      }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Description is required'},
+        notEmpty: {msg: 'Description is required'}
+      }
     },
     imageURL: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Image URL is required'},
+        notEmpty: {msg: 'Image URL is required'}
+      }
     }
   }, {
     sequelize,

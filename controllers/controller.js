@@ -9,7 +9,10 @@ class Controller {
 
     static postLogin (req, res) {
         const {email, password} = req.body
-
+        if(!email) {
+            const error = "Please insert your email"
+            return res.redirect(`/?errors=${error}`)
+        }
         User.findOne({
             where: { email: email}
         })
@@ -38,13 +41,15 @@ class Controller {
     }
 
     static register (req, res) {
-        res.render('register_page')
+        const {errors} = req.query
+        res.render('register_page', {errors})
     }
 
     static postRegister (req, res) {
         const {name, email, password, phone, address, role, adminPassword} = req.body
         if (role === "Admin" && adminPassword !== "sapilaras") {
-            res.send(`Admin Password Salah`)
+            const errors = 'Admin Password Incorrect!'
+            return res.redirect(`/register?errors=${errors}`)
         } else {
             User.create({name, email, password, phone, address, role})
                 .then((users) => {
@@ -53,8 +58,9 @@ class Controller {
                 })
                 .catch((err) => { 
                     if (err.name == 'SequelizeValidationError') {
-                        const messages = err.errors.map((el) => el.message)
-                        res.send(messages)
+                        const errors = err.errors.map((el) => ' '+el.message)
+                        // res.send(messages)
+                        return res.redirect(`/register?errors=${errors}`)
                     } else {
                         res.send(err)
                     }
@@ -136,10 +142,11 @@ class Controller {
     
     static customerMenu (req, res) {
         const {id} = req.params
+        const {errors} = req.query
         console.log(id);
         Menu.findAll()
         .then((menus) => {
-            res.render('customer_menu', {menus, id})
+            res.render('customer_menu', {menus, id, errors})
         })
         .catch((err) => {
             res.send(err)
@@ -161,7 +168,13 @@ class Controller {
                 res.redirect(`/customer/${id}/menu`)
             })
             .catch((err) => {
-                res.send(err)
+                if (err.name == 'SequelizeValidationError') {
+                    const errors = err.errors.map((el) => el.message)
+                    // res.send(messages)
+                    return res.redirect(`/customer/${id}/menu?errors=${errors}`)
+                } else {
+                    res.send(err)
+                }
             })
     }
 

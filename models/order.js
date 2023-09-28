@@ -25,7 +25,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     amount: {
       type: DataTypes.INTEGER,
-      defaultValue: 0
+      allowNull: false,
+      validate: {
+        notNull: {msg: 'Please insert the quantity ^^'},
+        notEmpty: {msg: 'Please insert the quantity ^^'},
+        notZero() {
+          if (this.amount && this.amount<=0) {
+            throw new Error('Need at least 1 quantity')
+          }
+        }
+      }
     },
     totalprice: {
       type: DataTypes.INTEGER,
