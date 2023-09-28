@@ -32,14 +32,12 @@ class Controller {
     }
 
     static postRegister (req, res) {
-        console.log(req.body);
         const {name, email, password, phone, address, role, adminPassword} = req.body
         if (role === "Admin" && adminPassword !== "sapilaras") {
             res.send(`Admin Password Salah`)
         } else {
             User.create({name, email, password, phone, address, role})
                 .then((users) => {
-                    console.log(users)
                     res.redirect('/')
                 })
                 .catch((err) => { 
@@ -51,6 +49,10 @@ class Controller {
                     }
                 })
         }
+    }
+
+    static postWallet (req, res) {
+        const {id} = req.params
     }
 
     static addMenu (req,res) {
