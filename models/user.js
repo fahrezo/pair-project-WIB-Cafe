@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     WalletId: {
       type: DataTypes.INTEGER,
-      autoIncrement: true
+      allowNull: 0
     },
     point: {
       type: DataTypes.INTEGER,
