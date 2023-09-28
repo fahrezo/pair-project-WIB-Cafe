@@ -133,7 +133,20 @@ class Controller {
     }
 
     static orderList (req, res) {
-        res.render('admin_order')
+        let order = ''
+        Order.findAll({
+            include: { model: User }
+        })
+        .then((orders) => {
+            order = orders
+            return Menu.findAll()
+        })
+        .then((result) => {
+            res.render('admin_order', {order, result})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static customerDetail (req, res) {
@@ -154,8 +167,6 @@ class Controller {
     }
 
     static customerOrder (req, res) {
-        // res.send(`oke`)
-        console.log(req.params, req.body);
         const {id, MenuId} = req.params
         const {price, amount} = req.body
 
@@ -163,8 +174,6 @@ class Controller {
 
         Order.create({MenuId, UserId:id, amount, totalprice: total})
             .then((result) => {
-                console.log(id);
-                console.log(req.params.id);
                 res.redirect(`/customer/${id}/menu`)
             })
             .catch((err) => {
@@ -185,7 +194,22 @@ class Controller {
             include: { model: Menu }
         })
         .then((orders) => {
-            res.send(orders)
+            res.render('customer_order', {orders, id})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+    }
+
+    static deleteOrder (req, res) {
+        const {id} = req.params
+        Order.destroy({
+            where : {
+                id: id
+            }
+        })
+        .then(() => {
+            res.redirect('/admin/order')
         })
         .catch((err) => {
             res.send(err)
@@ -195,6 +219,7 @@ class Controller {
     static logout (req, res) {
         res.redirect('/')
     }
+    
 }
 
 module.exports = Controller

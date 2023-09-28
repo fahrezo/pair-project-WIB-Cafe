@@ -15,6 +15,30 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
+        .transparent-white-table {
+            color: white;
+            font-size: 24px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+        .transparent-white-table th,
+        .transparent-white-table td {
+            color: black;
+            border: none;
+            text-align: center;
+        }
+        th, td {
+            border: none;
+        }
+        legend {
+            font-size: 48px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #ff9800;
+        }
     </style>
 </head>
 <body>
@@ -40,6 +64,26 @@
         </div>
     </nav>
     <legend>YOUR ORDER</legend>
+    <table class="table transparent-white-table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% orders.forEach(el => { %>
+            <tr>
+              <th scope="row"><%= el.id %></th>
+              <td><%= el.Menu.name %></td>
+              <td><%= el.amount %></td>
+              <td><%= el.totalprice %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

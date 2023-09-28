@@ -74,27 +74,35 @@
           </ul>
         </div>
     </nav>
-    <legend>Menu</legend>
+    <legend>ALL ORDER</legend>
     <table class="table transparent-white-table">
-        <thead>
+      <thead>
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Order by</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let foodName = '' %>
+        <% order.forEach(el => { %>
+          <% result.forEach(element => {
+            if (element.dataValues.id===el.MenuId) {
+              foodName = element.dataValues.name
+            }
+          }); %>
           <tr>
-            <th scope="col">Order Number</th>
-            <th scope="col">Order</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Customer</th>
-            <th scope="col">Action</th>
+            <th scope="row"><%= el.id %></th>
+            <td><%= foodName %></td>
+            <td><%= el.amount %></td>
+            <td><%= el.User.name %></td>
+            <td><a class="btn btn-outline-success" href="/menu/delete/<%= el.id %>">DONE</a></td>
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Karaage</td>
-            <td>1</td>
-            <td>Tesla</td>
-            <td><button type="button" class="btn btn-outline-success">DONE</button></td>
-          </tr>
-        </tbody>
-      </table>
+        <% }); %>
+      </tbody>
+    </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
