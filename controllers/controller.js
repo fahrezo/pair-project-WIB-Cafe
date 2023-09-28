@@ -137,8 +137,21 @@ class Controller {
     }
 
     static customerOrder (req, res) {
-        res.send(`oke`)
-        console.log(req.params, req.body);
+        // res.send(`oke`)
+        // console.log(req.params, req.body);
+        const {MenuId, id} = req.params
+        const {amount} = req.body
+
+        const price = 30000
+        let totalprice = amount * price
+
+        Order.create({MenuId, UserId:id, amount, totalprice})
+            .then((result) => {
+                res.redirect(`/customer/${id}}`)
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 
     static logout (req, res) {
