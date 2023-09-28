@@ -11,13 +11,11 @@ class Controller {
 
     static postRegister (req, res) {
         const {name, email, password, phone, address, role, adminPassword} = req.body
-        console.log(name, email, password, phone, address, role, adminPassword);
-        if (adminPassword==="sapilaras") {
-            res.send(req.body)
+        if (role === "Admin" && adminPassword!== 'sapilaras') {
+            res.redirect('/register')
         } else {
-            res.send(`Admin Password Salah`)
+            res.redirect('/')
         }
-        // User.create ({name:name, email:email, password:password, phone:phone, address:address})
     }
 }
 
