@@ -137,8 +137,6 @@ class Controller {
     }
 
     static customerOrder (req, res) {
-        // res.send(`oke`)
-        console.log(req.params, req.body);
         const {id, MenuId} = req.params
         const {price, amount} = req.body
 
@@ -146,8 +144,6 @@ class Controller {
 
         Order.create({MenuId, UserId:id, amount, totalprice: total})
             .then((result) => {
-                console.log(id);
-                console.log(req.params.id);
                 res.redirect(`/customer/${id}/menu`)
             })
             .catch((err) => {
@@ -162,6 +158,7 @@ class Controller {
         })
         .then((orders) => {
             res.send(orders)
+            // res.render('customer_order', {orders, id})
         })
         .catch((err) => {
             res.send(err)
