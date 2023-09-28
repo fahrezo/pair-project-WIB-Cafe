@@ -1,6 +1,6 @@
 class Controller {
     static home (req,res) {
-        res.render('homepage')
+        res.render('log_in_page')
     }
 }
 
