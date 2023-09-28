@@ -69,6 +69,22 @@ class Controller {
                 }
             })
     } 
+
+    static helloAdmin (req, res) {
+        res.render('admin_homepage')
+    }
+
+    static restaurantMenu (req, res) {
+        res.render('admin_menu')
+    }
+
+    static customerList (req, res) {
+        res.render('admin_customer_list')
+    }
+
+    static orderList (req, res) {
+        res.render('admin_order')
+    }
 }
 
 module.exports = Controller
