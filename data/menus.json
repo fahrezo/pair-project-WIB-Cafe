@@ -1,0 +1,30 @@
+[
+    {
+        "name": "California Roll",
+        "price": "30000",
+        "category": "Sushi",
+        "description": "Ini deskripsi",
+        "imageURL": "https://cdn.media.amplience.net/i/japancentre/recipes-37-karaage-japanese-fried-chicken/recipes-37-karaage-japanese-fried-chicken?$poi$&w=100&sm=aspect&aspect=16:9&fmt=auto"
+    },
+    {
+        "name": "Salmon Roll",
+        "price": "40000",
+        "category": "Sushi",
+        "description": "Ini deskripsi",
+        "imageURL": "https://cdn.media.amplience.net/i/japancentre/recipes-37-karaage-japanese-fried-chicken/recipes-37-karaage-japanese-fried-chicken?$poi$&w=100&sm=aspect&aspect=16:9&fmt=auto"
+    },
+    {
+        "name": "Beef Yakiniku Udon",
+        "price": "35000",
+        "category": "Udon",
+        "description": "Ini deskripsi",
+        "imageURL": "https://cdn.media.amplience.net/i/japancentre/recipes-37-karaage-japanese-fried-chicken/recipes-37-karaage-japanese-fried-chicken?$poi$&w=100&sm=aspect&aspect=16:9&fmt=auto"
+    },
+    {
+        "name": "Chiken Curry Rice",
+        "price": "35000",
+        "category": "Rice",
+        "description": "Ini deskripsi",
+        "imageURL": "https://cdn.media.amplience.net/i/japancentre/recipes-37-karaage-japanese-fried-chicken/recipes-37-karaage-japanese-fried-chicken?$poi$&w=100&sm=aspect&aspect=16:9&fmt=auto"
+    }
+]
