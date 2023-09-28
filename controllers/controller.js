@@ -126,6 +126,7 @@ class Controller {
     
     static customerMenu (req, res) {
         const {id} = req.params
+        console.log(id);
         Menu.findAll()
         .then((menus) => {
             res.render('customer_menu', {menus, id})
@@ -133,6 +134,11 @@ class Controller {
         .catch((err) => {
             res.send(err)
         })
+    }
+
+    static customerOrder (req, res) {
+        res.send(`oke`)
+        console.log(req.params, req.body);
     }
 
     static logout (req, res) {
