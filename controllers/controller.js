@@ -117,7 +117,15 @@ class Controller {
     }
 
     static orderList (req, res) {
-        res.render('admin_order')
+        Order.findAll({
+            include: { model: User }
+        })
+        .then((orders) => {
+            res.render('admin_order', {orders})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static customerDetail (req, res) {
@@ -158,8 +166,7 @@ class Controller {
             include: { model: Menu }
         })
         .then((orders) => {
-            res.send(orders)
-            // res.render('customer_order', {orders, id})
+            res.render('customer_order', {orders, id})
         })
         .catch((err) => {
             res.send(err)
