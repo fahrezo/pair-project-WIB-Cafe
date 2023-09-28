@@ -18,24 +18,11 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      role: {
-        type: Sequelize.STRING
-      },
       phone: {
         type: Sequelize.STRING
       },
       address: {
         type: Sequelize.STRING
-      },
-      WalletId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: {tableName: 'Wallets'},
-          key: 'id'
-        }
-      },
-      point: {
-        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

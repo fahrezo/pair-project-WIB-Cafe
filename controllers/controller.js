@@ -1,8 +1,26 @@
-// const {User} = require ('../models')
+const { Menu, User, Wallet, Order } = require ('../models')
 
 class Controller {
     static home (req,res) {
         res.render('log_in_page')
+    }
+
+    static postLogin (req, res) {
+        const {email, password} = req.body
+
+        User.findOne({
+            where: { email: email, password: password}
+        })
+            .then((result) => {
+                if (!result) {
+                    res.redirect('/')
+                } else {
+                    res.send('ini menu')
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 
     static register (req, res) {
@@ -10,13 +28,47 @@ class Controller {
     }
 
     static postRegister (req, res) {
+        console.log(req.body);
         const {name, email, password, phone, address, role, adminPassword} = req.body
-        if (role === "Admin" && adminPassword!== 'sapilaras') {
-            res.redirect('/register')
+        if (role === "Admin" && adminPassword !== "sapilaras") {
+            res.send(`Admin Password Salah`)
         } else {
-            res.redirect('/')
+            User.create({name, email, password, phone, address, role})
+                .then((users) => {
+                    console.log(users)
+                    res.redirect('/')
+                })
+                .catch((err) => { 
+                    if (err.name == 'SequelizeValidationError') {
+                        const messages = err.errors.map((el) => el.message)
+                        res.send(messages)
+                    } else {
+                        res.send(err)
+                    }
+                })
         }
     }
+
+    static addMenu (req,res) {
+        // res.render('TAMBAH MENU')
+    }
+
+    static createMenu (req,res) {
+        const {name, price, category, description} = req.body
+        Menu.create({name, price, category, description})
+            .then((menu) => {
+                console.log(menu);
+                res.redirect(`/MENU UTAMA`)
+            })
+            .catch((err) => { 
+                if (err.name == 'SequelizeValidationError') {
+                    const messages = err.errors.map((el) => el.message)
+                    res.send(messages)
+                } else {
+                    res.send(err)
+                }
+            })
+    } 
 }
 
 module.exports = Controller
