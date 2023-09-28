@@ -79,11 +79,26 @@ class Controller {
     }
 
     static restaurantMenu (req, res) {
-        res.render('admin_menu')
+        Menu.findAll()
+            .then((menus) => {
+                res.render('admin_menu', {menus})
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 
     static customerList (req, res) {
-        res.render('admin_customer_list')
+        User.findAll({
+            where: { role: 'Customer' },
+            include: { model: Wallet }
+        })
+            .then((users) => {
+                res.render('admin_customer_list', {users})
+            })
+            .catch((err) => {
+                res.send(err)
+            })
     }
 
     static orderList (req, res) {
