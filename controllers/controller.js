@@ -206,9 +206,9 @@ class Controller {
             include: { model: User },
             where: { UserId: id }
         })
-        .then((user) => {
-            const userName = user.User.dataValues.name
-            res.render('admin_customer_detail', {user, userName})
+        .then((wallet) => {
+            const userName = wallet.User.dataValues.name
+            res.render('admin_customer_detail', {wallet, userName})
         })
         .catch((err) => {
             res.send(err)
@@ -216,7 +216,27 @@ class Controller {
     }
 
     static customerTopUp (req, res) {
+        const {id} = req.params
+        const {topup} = req.body
         
+        Wallet.findOne({
+            where: { UserId: id }
+        })
+        .then((wallet) => {
+            const addBalance = (wallet.dataValues.balance)
+            const newBalance = addBalance+ Number(topup)
+            return Wallet.update({balance:newBalance}, {
+                    where: {
+                        UserId:id
+                    }
+            })
+        })
+        .then(() => {
+            res.redirect(`/admin/list/detail/${id}`)
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
     
     static customerMenu (req, res) {
