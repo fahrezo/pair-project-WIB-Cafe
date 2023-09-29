@@ -203,6 +203,10 @@ class Controller {
             res.send(err)
         })
     }
+
+    static customerTopUp (req, res) {
+        
+    }
     
     static customerMenu (req, res) {
         const {id} = req.params
