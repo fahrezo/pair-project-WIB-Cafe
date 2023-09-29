@@ -164,12 +164,12 @@ class Controller {
             where: { role: 'Customer' },
             include: { model: Wallet }
         })
-            .then((users) => {
-                res.render('admin_customer_list', {users})
-            })
-            .catch((err) => {
-                res.send(err)
-            })
+        .then((users) => {
+            res.render('admin_customer_list', {users})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static orderList (req, res) {
@@ -190,13 +190,23 @@ class Controller {
     }
 
     static customerDetail (req, res) {
-        res.render('admin_customer_detail')
+        const {id} = req.params
+        Wallet.findOne({
+            include: { model: User },
+            where: { UserId: id }
+        })
+        .then((user) => {
+            const userName = user.User.dataValues.name
+            res.render('admin_customer_detail', {user, userName})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
     
     static customerMenu (req, res) {
         const {id} = req.params
         const {errors} = req.query
-        console.log(id);
         Menu.findAll()
         .then((menus) => {
             res.render('customer_menu', {menus, id, errors})
@@ -207,23 +217,36 @@ class Controller {
     }
 
     static customerOrder (req, res) {
+        let wallet = 0
         const {id, MenuId} = req.params
         const {price, amount} = req.body
-
         const total = amount * price
 
-        Order.create({MenuId, UserId:id, amount, totalprice: total})
-            .then((result) => {
+        Wallet.findOne({ 
+            where: {UserId: id} 
+        })
+        .then((result) => {
+            wallet = result.balance
+            console.log(wallet);
+            if (wallet>=total) {
+                wallet = result.balance - total
+                let pointNow = result.point + 1
+
+                Order.create({MenuId, UserId:id, amount, totalprice: total})
+                
+                Wallet.update(
+                    { balance: wallet, point: pointNow},
+                    { where: { UserId: id }}
+                )
                 res.redirect(`/customer/${id}/menu`)
-            })
-            .catch((err) => {
-                if (err.name == 'SequelizeValidationError') {
-                    const errors = err.errors.map((el) => el.message)
-                    return res.redirect(`/customer/${id}/menu?errors=${errors}`)
-                } else {
-                    res.send(err)
-                }
-            })
+            } else {
+                const error = "Insuficient balance, please top up"
+                res.redirect(`/customer/${id}/menu?errors=${error}`)
+            }
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static customerOrderList (req, res) {
