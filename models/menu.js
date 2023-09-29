@@ -1,4 +1,5 @@
 'use strict';
+const rupiah = require('../helpers');
 const {
   Model
 } = require('sequelize');
