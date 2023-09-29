@@ -18,12 +18,13 @@ class Controller {
             where: { email: email}
         })
             .then((result) => {
+                console.log(result);
                 if (!result) {
                     const error = "Email not registered"
                     return res.redirect(`/?errors=${error}`)
                 } else {
                     const validatePassword = bcrypt.compareSync(password, result.password)
-
+                    console.log(validatePassword);
                     if(!validatePassword) {
                         const error = "Password is incorrect"
                         return res.redirect(`/?errors=${error}`)
