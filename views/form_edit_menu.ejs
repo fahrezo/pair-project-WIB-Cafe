@@ -87,32 +87,33 @@
     </nav>
     <legend>NEW Menu</legend>
     <div class="form-container">
-        <form action="/admin/add/menu" method="post">
-            <div class="form-group">
-                <label for="sectionName">Food Name</label>
-                <input type="text" class="form-control" id="sectionName" placeholder="Name..." name="name">
-            </div>
-            <div class="form-group">
-                <label for="sectionPrice">Price</label>
-                <input type="integer" class="form-control" id="sectionPrice" placeholder="Price..." name="price">
-            </div>
-            <div class="form-group">
-                <label for="sectionCategory">Category</label>
-                <input type="text" class="form-control" id="sectionCategory" placeholder="Category..." name="category">
-            </div>
-            <div class="form-group">
-                <label for="sectionDescription">Description</label>
-                <input type="text" class="form-control" id="sectionDescription" placeholder="description" name="description">
-            </div>
-            <div class="form-group">
-                <label for="sectionImageURL">Food Image</label>
-                <input type="text" class="form-control" id="sectionImageURL" placeholder="Image link..." name="imageURL">
-            </div>
-            <div class="center-button">
-                <button type="submit" class="btn btn-dark">Create new menu</button>
-                <a href="/admin/menu" class="btn btn-danger ml-2">Cancel</a>
-            </div>
-        </form>
+            <form action="/admin/edit/menu/<%= result.id %>" method="post">
+                <div class="form-group">
+                    <label for="sectionName">Food Name</label>
+                    <input type="text" class="form-control" id="sectionName" placeholder="<%= result.name %>" value="<%= result.name %>" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="sectionPrice">Price</label>
+                    <input type="integer" class="form-control" id="sectionPrice" placeholder="<%= result.price %>" value="<%= result.price %>" name="price">
+                </div>
+                <div class="form-group">
+                    <label for="sectionCategory">Category</label>
+                    <input type="text" class="form-control" id="sectionCategory" placeholder="<%= result.category %>" value="<%= result.category %>" name="category">
+                </div>
+                <div class="form-group">
+                    <label for="sectionDescription">Description</label>
+                    <input type="text" class="form-control" id="sectionDescription" placeholder="<%= result.description %>" value="<%= result.description %>" name="description">
+                </div>
+                <div class="form-group">
+                    <label for="sectionImageURL">Food Image</label>
+                    <input type="text" class="form-control" id="sectionImageURL" placeholder="<%= result.imageURL %>" value="<%= result.imageURL %>" name="imageURL">
+                </div>
+                <div class="center-button">
+                    <button type="submit" class="btn btn-dark">Update menu</button>
+                    <a href="/admin/menu" class="btn btn-danger ml-3">Cancel</a>
+                    <a href="/menu/delete/<%= result.id %>" class="btn btn-danger ml-3">Delete</a>
+                </div>
+            </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
