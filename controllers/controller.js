@@ -47,7 +47,7 @@ class Controller {
 
     static postRegister (req, res) {
         const {name, email, password, phone, address, role, adminPassword} = req.body
-        if (role === "Admin" && adminPassword !== "sapilaras") {
+        if (role === "Admin" && adminPassword !== "wibcafe") {
             const errors = 'Admin Password Incorrect!'
             return res.redirect(`/register?errors=${errors}`)
         } else {

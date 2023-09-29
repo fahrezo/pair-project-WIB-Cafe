@@ -1,4 +1,5 @@
 'use strict';
+const rupiah = require('../helpers');
 const {
   Model
 } = require('sequelize');
@@ -11,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Menu.hasMany(models.Order, {foreignKey: 'MenuId'})
+    }
+
+    get priceRp() {
+      return rupiah(this.price)
     }
   }
   Menu.init({
