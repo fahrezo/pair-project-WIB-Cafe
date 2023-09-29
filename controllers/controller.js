@@ -164,12 +164,12 @@ class Controller {
             where: { role: 'Customer' },
             include: { model: Wallet }
         })
-            .then((users) => {
-                res.render('admin_customer_list', {users})
-            })
-            .catch((err) => {
-                res.send(err)
-            })
+        .then((users) => {
+            res.render('admin_customer_list', {users})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
 
     static orderList (req, res) {
@@ -190,13 +190,23 @@ class Controller {
     }
 
     static customerDetail (req, res) {
-        res.render('admin_customer_detail')
+        const {id} = req.params
+        Wallet.findOne({
+            include: { model: User },
+            where: { UserId: id }
+        })
+        .then((user) => {
+            const userName = user.User.dataValues.name
+            res.render('admin_customer_detail', {user, userName})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
     }
     
     static customerMenu (req, res) {
         const {id} = req.params
         const {errors} = req.query
-        console.log(id);
         Menu.findAll()
         .then((menus) => {
             res.render('customer_menu', {menus, id, errors})
