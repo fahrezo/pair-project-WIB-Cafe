@@ -90,14 +90,14 @@
           </thead>
           <tbody>
               <tr>
-                <th scope="row"><%= user.id %></th>
+                <th scope="row"><%= wallet.id %></th>
                 <td><%= userName %></td>
-                <td><%= user.balance %></td>
-                <td><%= user.point %></td>
+                <td><%= wallet.balance %></td>
+                <td><%= wallet.point %></td>
               </tr>
           </tbody>
       </table>
-      <form action="/admin/list/detail/<%= user.id %>" method="post">
+      <form action="/admin/list/detail/<%= wallet.UserId %>" method="post">
           <div class="form-group">
             <div class="input-group">
               <input type="number" class="form-control" placeholder="Top Up Amount" name="topup">
