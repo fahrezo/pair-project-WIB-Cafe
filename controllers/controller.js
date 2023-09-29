@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const { Menu, User, Wallet, Order } = require ('../models')
 const bcrypt = require('bcrypt')
 
@@ -160,10 +161,19 @@ class Controller {
     }
 
     static customerList (req, res) {
-        User.findAll({
+        const {search} = req.query
+
+        let options = {
             where: { role: 'Customer' },
-            include: { model: Wallet }
-        })
+            include: { model: Wallet }}
+
+        if (search) {
+            options.where.name = {
+                [Op.iLike]: `%${search}%`
+            }
+        }
+
+        User.findAll(options)
         .then((users) => {
             res.render('admin_customer_list', {users})
         })
