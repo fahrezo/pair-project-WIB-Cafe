@@ -47,7 +47,7 @@ class Controller {
 
     static postRegister (req, res) {
         const {name, email, password, phone, address, role, adminPassword} = req.body
-        if (role === "Admin" && adminPassword !== "sapilaras") {
+        if (role === "Admin" && adminPassword !== "wibcafe") {
             const errors = 'Admin Password Incorrect!'
             return res.redirect(`/register?errors=${errors}`)
         } else {
@@ -220,7 +220,7 @@ class Controller {
             console.log(wallet);
             if (wallet>=total) {
                 wallet = result.balance - total
-                let pointNow = result.point++
+                let pointNow = result.point + 1
 
                 Order.create({MenuId, UserId:id, amount, totalprice: total})
                 
@@ -237,16 +237,6 @@ class Controller {
         .catch((err) => {
             res.send(err)
         })
-
-            })
-            .catch((err) => {
-                if (err.name == 'SequelizeValidationError') {
-                    const errors = err.errors.map((el) => el.message)
-                    return res.redirect(`/customer/${id}/menu?errors=${errors}`)
-                } else {
-                    res.send(err)
-                }
-            })
     }
 
     static customerOrderList (req, res) {
