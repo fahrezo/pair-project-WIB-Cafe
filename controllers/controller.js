@@ -53,13 +53,11 @@ class Controller {
         } else {
             User.create({name, email, password, phone, address, role})
                 .then((users) => {
-                    // res.send(users)
                     res.redirect(`/register/wallet/${users.id}`)
                 })
                 .catch((err) => { 
                     if (err.name == 'SequelizeValidationError') {
                         const errors = err.errors.map((el) => ' '+el.message)
-                        // res.send(messages)
                         return res.redirect(`/register?errors=${errors}`)
                     } else {
                         res.send(err)
